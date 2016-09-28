@@ -65,7 +65,7 @@ angular
                     reader.readAsArrayBuffer(params.file);
 
                 } else {
-
+                    console.log('This bad boy is not a TIFF');
                     var canvas = element.find('canvas');
                     var reader = new FileReader();
 

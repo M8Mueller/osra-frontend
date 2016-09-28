@@ -19,7 +19,9 @@
 
   <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
   <script src="bower_components/tiff.js/tiff.min.js"></script>
-  <script src="components/ChemDoodleWeb-7.0.2/ChemDoodleWeb.js"></script>
+  <script src="components/ChemDoodleWeb-7.0.2/install/ChemDoodleWeb.js"></script>
+  <script src="components/ChemDoodleWeb-7.0.2/install/uis/ChemDoodleWeb-uis.js"></script>
+
 
   <script src="app.js"></script>
   <script src="upload.js"></script>
@@ -50,6 +52,18 @@
   </style>
 </head>
 <body ng-controller="UploadController" nv-file-drop="" uploader="uploader">
+
+  <script>
+    ChemDoodle.ELEMENT['H'].jmolColor = 'black';
+    ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
+    var sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300,{useServices:true});
+    sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
+    sketcher.specs.atoms_useJMOLColors = true;
+    sketcher.specs.bonds_clearOverlaps_2D = true;
+    sketcher.specs.shapes_color = '#c10000';
+    sketcher.repaint();
+  </script>
+
   <!--<ul class="menu">
     <li><a href="#!/view1">view1</a></li>
     <li><a href="#!/view2">view2</a></li>

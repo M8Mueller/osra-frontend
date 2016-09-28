@@ -32,6 +32,7 @@ angular
                 console.info(response);
 
                 $scope.MOLdata = response.data[0].outputLog.split("M  END")[0];
+                sketcher.loadMolecule(ChemDoodle.readMOL($scope.MOLdata));
             });
             console.log(uploader);
             var uploaderTop = $scope.uploaderTop = [ uploader.queue[uploader.queue.length-1] ];
