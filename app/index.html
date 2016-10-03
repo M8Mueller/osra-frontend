@@ -23,6 +23,10 @@
   <script src="components/ChemDoodleWeb-7.0.2/install/uis/ChemDoodleWeb-uis.js"></script>
 
 
+  <link rel="stylesheet" href="components/ChemDoodleWeb-7.0.2/install/ChemDoodleWeb.css">
+  <link rel="stylesheet" href="components/ChemDoodleWeb-7.0.2/install/uis/jquery-ui-1.10.3.custom.css">
+
+
   <script src="app.js"></script>
   <script src="upload.js"></script>
   <script src="view1/view1.js"></script>
@@ -37,83 +41,57 @@
   <style>
     .my-drop-zone { border: dotted 3px lightgray; }
     .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
-    .another-file-over-class { border: dotted 3px green; }
+    .drop-container { margin: 5px; }
 
     html, body { height: 100%; }
 
     canvas {
-      background-color: #f3f3f3;
+      background-color: #ffffff;
       -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
       -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
       box-shadow: 3px 3px 3px 0 #e3e3e3;
       border: 1px solid #c3c3c3;
       margin: 6px 0 0 6px;
+      max-width: 500px;
+      max-height: 300px;
+    }
+
+    .upload-box div canvas {
+      padding: 10px;
     }
   </style>
 </head>
 <body ng-controller="UploadController" nv-file-drop="" uploader="uploader">
 
-  <script>
-    ChemDoodle.ELEMENT['H'].jmolColor = 'black';
-    ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
-    var sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300,{useServices:true});
-    sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
-    sketcher.specs.atoms_useJMOLColors = true;
-    sketcher.specs.bonds_clearOverlaps_2D = true;
-    sketcher.specs.shapes_color = '#c10000';
-    sketcher.repaint();
-  </script>
+<div ng-show="uploader.isHTML5" class="drop-container">
+  <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+    Drag your image here
+  </div>
+</div>
 
-  <!--<ul class="menu">
-    <li><a href="#!/view1">view1</a></li>
-    <li><a href="#!/view2">view2</a></li>
-  </ul>-->
+<div class="upload-box" ng-repeat="item in uploaderTop">
+  <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 500, height: 300 }"></div>
+  <!--<div ng-show="uploader.isHTML5">
+    <div class="progress" style="margin-bottom: 0;">
+      <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+    </div>
+  </div>-->
+</div>
+
+<script>
+  ChemDoodle.ELEMENT['H'].jmolColor = 'black';
+  ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
+  var sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300,{useServices:true});
+  sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
+  sketcher.specs.atoms_useJMOLColors = true;
+  sketcher.specs.bonds_clearOverlaps_2D = true;
+  sketcher.specs.shapes_color = '#c10000';
+  sketcher.repaint();
+</script>
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-
-  <!--<div ng-view></div>-->
-
-  <div ng-show="uploader.isHTML5">
-    <!-- 3. nv-file-over uploader="link" over-class="className" -->
-    <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-      Drag your image here
-    </div>
-
-    <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-    <!--<div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-      <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone">
-        Another drop zone with its own settings
-      </div>
-    </div>-->
-
-    <!--<ul>
-      <li ng-repeat="item in uploader.queue">
-        Name: <span ng-bind="item.file.name"></span><br/>
-        <button ng-click="item.upload()">upload</button>
-      </li>
-    </ul>-->
-    <ul>
-      <li ng-repeat="item in uploaderTop">
-          <!--<strong>{{ item.file.name }}</strong>-->
-          <!-- Image preview -->
-          <!--auto height-->
-          <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
-          <!--auto width-->
-          <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file }"></div>
-          <!--fixed width and height -->
-          <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
-        <!--<div ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</div>-->
-        <!--<div ng-show="uploader.isHTML5">
-          <div class="progress" style="margin-bottom: 0;">
-            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-          </div>
-        </div>-->
-      </li>
-    </ul>
-    {{MOLdata}}
-  </div>
 
   <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
   <!--<input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>-->
