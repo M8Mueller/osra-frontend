@@ -39,11 +39,37 @@
   <script src="directives.js"></script>
 
   <style>
-    .my-drop-zone { border: dotted 3px lightgray; }
+    .my-drop-zone { border: dotted 3px lightgray; max-width: 500px; }
     .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
     .drop-container { margin: 5px; }
 
-    html, body { height: 100%; }
+    html, body {
+      height: 100%;
+      background-color: #f8f8f8;
+    }
+
+    .site-header {
+      background-color: /*#b3d4fc;#9c1a1a;#d26161;*/#6e61d2;
+      padding: 1px 0px 11px 10px;
+      color: #f8f8f8;
+    }
+
+    .site-subheader {
+      background-color: #d26161;
+      padding: 1px 0px 1px 20px;
+      color: #f8f8f8;
+    }
+
+    .upload-box {
+      margin: 0px 0px 20px 5px;
+      width: 500px;
+    }
+
+    .upload-box canvas {
+      padding: 10px;
+      display: block;
+      margin: auto;
+    }
 
     canvas {
       background-color: #ffffff;
@@ -56,42 +82,68 @@
       max-height: 300px;
     }
 
-    .upload-box div canvas {
-      padding: 10px;
-    }
   </style>
 </head>
 <body ng-controller="UploadController" nv-file-drop="" uploader="uploader">
 
-<div ng-show="uploader.isHTML5" class="drop-container">
-  <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-    Drag your image here
-  </div>
-</div>
-
-<div class="upload-box" ng-repeat="item in uploaderTop">
-  <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 500, height: 300 }"></div>
-  <!--<div ng-show="uploader.isHTML5">
-    <div class="progress" style="margin-bottom: 0;">
-      <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+  <header class="site-header">
+    <div class="banner">
+      <h1>OSRA Image Upload</h1>
     </div>
-  </div>-->
-</div>
+  </header>
 
-<script>
-  ChemDoodle.ELEMENT['H'].jmolColor = 'black';
-  ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
-  var sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300,{useServices:true});
-  sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
-  sketcher.specs.atoms_useJMOLColors = true;
-  sketcher.specs.bonds_clearOverlaps_2D = true;
-  sketcher.specs.shapes_color = '#c10000';
-  sketcher.repaint();
-</script>
-
-  <!--[if lt IE 7]>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+      <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+      <![endif]-->
+
+      <div ng-show="uploader.isHTML5" class="drop-container">
+        <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+          Drag your image here
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site-subheader col-md-12"><h3>Your Image:</h3></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+      <div class="upload-box" ng-repeat="item in uploaderTop">
+        <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 500, height: 300 }"></div>
+        <!--<div ng-show="uploader.isHTML5">
+          <div class="progress" style="margin-bottom: 0;">
+            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+          </div>
+        </div>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site-subheader col-md-12"><h3>OSRA's Opinion:</h3></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+      <script>
+        ChemDoodle.ELEMENT['H'].jmolColor = 'black';
+        ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
+        var sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300,{useServices:true});
+        sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
+        sketcher.specs.atoms_useJMOLColors = true;
+        sketcher.specs.bonds_clearOverlaps_2D = true;
+        sketcher.specs.shapes_color = '#c10000';
+        sketcher.repaint();
+      </script>
+    </div>
+  </div>
 
   <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
   <!--<input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>-->
