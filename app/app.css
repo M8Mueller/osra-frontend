@@ -1,32 +1,41 @@
-/* app css stylesheet */
+.my-drop-zone { border: dotted 3px lightgray; width: 500px; }
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.drop-container { margin: 0px 0px 0px 5px; }
+
+html, body {
+  height: 100%;
+  background-color: #f8f8f8;
+}
 
 .menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+  background-color: #6e61d2;/*#b3d4fc;#9c1a1a;#d26161;*/
+  color: #f8f8f8;
+  padding: 10px 0px 10px 30px;
+  margin-bottom: 5px;
 }
 
-.menu:before {
-  content: "[";
+.upload-box {
+  margin: 0px 0px 20px 5px;
+  width: 500px;
 }
 
-.menu:after {
-  content: "]";
+.upload-box canvas {
+  padding: 10px;
+  display: block;
+  margin: auto;
 }
 
-.menu > li {
-  display: inline;
+canvas {
+  background-color: #ffffff;
+  -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+  -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+  box-shadow: 3px 3px 3px 0 #e3e3e3;
+  border: 1px solid #c3c3c3;
+  margin: 6px 0 0 6px;
+  max-width: 500px;
+  max-height: 300px;
 }
 
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
+.fa-spinner {
+  margin: 10px 0px 0px 10px;
 }
-
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
-}
-
-

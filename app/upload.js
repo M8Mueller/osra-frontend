@@ -18,6 +18,7 @@ angular
         // CALLBACKS
 
         uploader.onAfterAddingFile = function(fileItem) {
+            $scope.processing = true;
             console.info('onAfterAddingFile', fileItem);
 
             var data = new FormData();
@@ -29,6 +30,7 @@ angular
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             }).then(function(response){
+                $scope.processing = false;
                 console.info(response);
 
                 $scope.MOLdata = response.data[0].outputLog.split("M  END")[0];

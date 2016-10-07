@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="components/ChemDoodleWeb-7.0.2/install/ChemDoodleWeb.css">
   <link rel="stylesheet" href="components/ChemDoodleWeb-7.0.2/install/uis/jquery-ui-1.10.3.custom.css">
 
+  <link rel="stylesheet" href="components/font-awesome-4.6.3/css/font-awesome.min.css" />
+
 
   <script src="app.js"></script>
   <script src="upload.js"></script>
@@ -39,64 +41,21 @@
   <script src="directives.js"></script>
 
   <style>
-    .my-drop-zone { border: dotted 3px lightgray; max-width: 500px; }
-    .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
-    .drop-container { margin: 5px; }
 
-    html, body {
-      height: 100%;
-      background-color: #f8f8f8;
-    }
-
-    .site-header {
-      background-color: /*#b3d4fc;#9c1a1a;#d26161;*/#6e61d2;
-      padding: 1px 0px 11px 10px;
-      color: #f8f8f8;
-    }
-
-    .site-subheader {
-      background-color: #d26161;
-      padding: 1px 0px 1px 20px;
-      color: #f8f8f8;
-    }
-
-    .upload-box {
-      margin: 0px 0px 20px 5px;
-      width: 500px;
-    }
-
-    .upload-box canvas {
-      padding: 10px;
-      display: block;
-      margin: auto;
-    }
-
-    canvas {
-      background-color: #ffffff;
-      -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
-      -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
-      box-shadow: 3px 3px 3px 0 #e3e3e3;
-      border: 1px solid #c3c3c3;
-      margin: 6px 0 0 6px;
-      max-width: 500px;
-      max-height: 300px;
-    }
 
   </style>
 </head>
 <body ng-controller="UploadController" nv-file-drop="" uploader="uploader">
 
-  <header class="site-header">
-    <div class="banner">
-      <h1>OSRA Image Upload</h1>
-    </div>
+  <header class="menu">
+    <h1>OSRA Image Upload</h1>
   </header>
 
   <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-11">
+    <div class="col-xs-1"><i class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true" ng-show="processing"></i></div>
+    <div class="col-xs-11">
       <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
 
       <div ng-show="uploader.isHTML5" class="drop-container">
@@ -107,31 +66,26 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="site-subheader col-md-12"><h3>Your Image:</h3></div>
+  <div class="menu">
+    <h3>Your Image:</h3>
   </div>
 
   <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-11">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-11">
       <div class="upload-box" ng-repeat="item in uploaderTop">
         <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 500, height: 300 }"></div>
-        <!--<div ng-show="uploader.isHTML5">
-          <div class="progress" style="margin-bottom: 0;">
-            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-          </div>
-        </div>-->
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="site-subheader col-md-12"><h3>OSRA's Opinion:</h3></div>
+  <div class="menu">
+    <h3>OSRA's Opinion:</h3>
   </div>
 
   <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-11">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-11">
       <script>
         ChemDoodle.ELEMENT['H'].jmolColor = 'black';
         ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
