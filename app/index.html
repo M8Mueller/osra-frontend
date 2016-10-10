@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>Optical Structure Interpreter</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
@@ -48,11 +48,13 @@
 <body ng-controller="UploadController" nv-file-drop="" uploader="uploader">
 
   <header class="menu">
-    <h1>OSRA Image Upload</h1>
+    <h1>Optical Structure Interpreter</h1>
+    <p>Drag and drop an image, or use the button below to select one manually.</p>
+    <p>Or visit the <a href="http://mona.fiehnlab.ucdavis.edu/">MoNA main site</a>.</p>
   </header>
 
   <div class="row">
-    <div class="col-xs-1"><i class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true" ng-show="processing"></i></div>
+    <div class="col-xs-1"></div>
     <div class="col-xs-11">
       <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -63,24 +65,30 @@
           Drag your image here
         </div>
       </div>
+      <input type="file" nv-file-select="" uploader="uploader" /><br/>
     </div>
   </div>
 
   <div class="menu">
-    <h3>Your Image:</h3>
+    <h3>Your Image</h3>
+    <p>This is the image you selected.</p>
   </div>
 
   <div class="row">
     <div class="col-xs-1"></div>
     <div class="col-xs-11">
-      <div class="upload-box" ng-repeat="item in uploaderTop">
+      <div ng-cloak class="upload-box" ng-repeat="item in uploaderTop">
         <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 500, height: 300 }"></div>
       </div>
     </div>
   </div>
 
   <div class="menu">
-    <h3>OSRA's Opinion:</h3>
+    <i ng-cloak class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true" ng-show="processing"></i>
+    <h3>Chem Doodle</h3>
+    <p ng-cloak ng-show="processing">Please be patient. Large images can take a while to process.</p>
+    <p>Inchi Code: {{inchiCode}}</p>
+    <p>Inchi Key: {{inchiKey}}</p>
   </div>
 
   <div class="row">
@@ -107,6 +115,8 @@
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
-
+  <!--<footer>
+    <p>Credit to Angular Seed, Angular File Upload, ChemDoodle, and Tiff.js</p>
+  </footer>-->
 </body>
 </html>

@@ -33,8 +33,16 @@ angular
                 $scope.processing = false;
                 console.info(response);
 
-                $scope.MOLdata = response.data[0].outputLog.split("M  END")[0];
-                sketcher.loadMolecule(ChemDoodle.readMOL($scope.MOLdata));
+                if (response && response.data.length > 0) {
+                    $scope.MOLdata = response.data[0].outputLog.split("M  END")[0];
+                    $scope.inchiCode = response.data[0].inchiCode.split("InChI=")[1];
+                    $scope.inchiKey = response.data[0].outputLog.split("<InChI_key>")[1].split("$$$$")[0];
+                    sketcher.loadMolecule(ChemDoodle.readMOL($scope.MOLdata));
+                } else {
+                    $scope.inchiCode = "not found";
+                    $scope.inchiKey = "not found";
+                    sketcher.clear();
+                }
             });
             console.log(uploader);
             var uploaderTop = $scope.uploaderTop = [ uploader.queue[uploader.queue.length-1] ];

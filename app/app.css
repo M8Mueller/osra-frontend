@@ -8,7 +8,8 @@ html, body {
 }
 
 .menu {
-  background-color: #6e61d2;/*#b3d4fc;#9c1a1a;#d26161;*/
+  background-color: #1A3E68;
+  border-bottom: 5px solid #DFC166;
   color: #f8f8f8;
   padding: 10px 0px 10px 30px;
   margin-bottom: 5px;
