@@ -19,6 +19,7 @@ angular
 
         uploader.onAfterAddingFile = function(fileItem) {
             $scope.processing = true;
+            //$scope.processed = false;
             console.info('onAfterAddingFile', fileItem);
 
             var data = new FormData();
@@ -34,6 +35,7 @@ angular
                 console.info(response);
 
                 if (response && response.data.length > 0) {
+                    //$scope.processed = true;
                     $scope.MOLdata = response.data[0].outputLog.split("M  END")[0];
                     $scope.inchiCode = response.data[0].inchiCode.split("InChI=")[1];
                     $scope.inchiKey = response.data[0].outputLog.split("<InChI_key>")[1].split("$$$$")[0];

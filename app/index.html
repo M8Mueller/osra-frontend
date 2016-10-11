@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="theme.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
   <script src="bower_components/angular/angular.js"></script>
@@ -45,78 +46,84 @@
 
   </style>
 </head>
-<body ng-controller="UploadController" nv-file-drop="" uploader="uploader">
+<body id="OSI" ng-controller="UploadController" nv-file-drop="" uploader="uploader">
 
-  <header class="menu">
-    <h1>Optical Structure Interpreter</h1>
-    <p>Drag and drop an image, or use the button below to select one manually.</p>
-    <p>Or visit the <a href="http://mona.fiehnlab.ucdavis.edu/">MoNA main site</a>.</p>
-  </header>
+  <div id="wrapper">
 
-  <div class="row">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-11">
-      <!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-      <![endif]-->
+    <header class="menu">
+      <h1>Optical Structure Interpreter</h1>
+      <p>Drag and drop an image, or use the button below to select one manually.</p>
+      <p>Or visit the <a href="http://mona.fiehnlab.ucdavis.edu/">MoNA main site</a>.</p>
+    </header>
 
-      <div ng-show="uploader.isHTML5" class="drop-container">
-        <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-          Drag your image here
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div ng-show="uploader.isHTML5" class="drop-container">
+          <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+            Drag your image here
+          </div>
+        </div>
+        <input type="file" nv-file-select="" uploader="uploader" /><br/>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="menu">
+      <h3>Received Data Preview</h3>
+      <p>This is your submitted image.</p>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <div ng-cloak class="upload-box" ng-repeat="item in uploaderTop">
+          <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 500, height: 300 }"></div>
         </div>
       </div>
-      <input type="file" nv-file-select="" uploader="uploader" /><br/>
+      <div class="col-sm-1"></div>
     </div>
-  </div>
 
-  <div class="menu">
-    <h3>Your Image</h3>
-    <p>This is the image you selected.</p>
-  </div>
+    <div class="menu">
+      <h3>Result</h3>
+      <p ng-cloak ng-show="processing">Please be patient. Large images can take a while to process.</p>
+      <i ng-cloak ng-show="processing" class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></i>
+      <p ng-cloak ng-hide="processing">InChI Code: {{inchiCode}}</p>
+      <p ng-cloak ng-hide="processing">InChIKey: {{inchiKey}}</p>
+    </div>
 
-  <div class="row">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-11">
-      <div ng-cloak class="upload-box" ng-repeat="item in uploaderTop">
-        <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 500, height: 300 }"></div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <script>
+          ChemDoodle.ELEMENT['H'].jmolColor = 'black';
+          ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
+          var sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300,{useServices:true});
+          sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
+          sketcher.specs.atoms_useJMOLColors = true;
+          sketcher.specs.bonds_clearOverlaps_2D = true;
+          sketcher.specs.shapes_color = '#c10000';
+          sketcher.repaint();
+        </script>
       </div>
+      <div class="col-sm-1"></div>
     </div>
+
+    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+    <!--<input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>-->
+
+    <!--<div>Angular seed app: v<span app-version></span></div>-->
+
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+    -->
+    <!--<footer>
+      <p>Credit to Angular Seed, Angular File Upload, ChemDoodle, and Tiff.js</p>
+    </footer>-->
   </div>
-
-  <div class="menu">
-    <i ng-cloak class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true" ng-show="processing"></i>
-    <h3>Chem Doodle</h3>
-    <p ng-cloak ng-show="processing">Please be patient. Large images can take a while to process.</p>
-    <p>Inchi Code: {{inchiCode}}</p>
-    <p>Inchi Key: {{inchiKey}}</p>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-11">
-      <script>
-        ChemDoodle.ELEMENT['H'].jmolColor = 'black';
-        ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
-        var sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300,{useServices:true});
-        sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
-        sketcher.specs.atoms_useJMOLColors = true;
-        sketcher.specs.bonds_clearOverlaps_2D = true;
-        sketcher.specs.shapes_color = '#c10000';
-        sketcher.repaint();
-      </script>
-    </div>
-  </div>
-
-  <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-  <!--<input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>-->
-
-  <!--<div>Angular seed app: v<span app-version></span></div>-->
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <!--<footer>
-    <p>Credit to Angular Seed, Angular File Upload, ChemDoodle, and Tiff.js</p>
-  </footer>-->
 </body>
 </html>
