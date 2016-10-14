@@ -14,6 +14,38 @@ angular
     // Only for example
 
 
+    .directive('ngDoodle', ['$window', function($window) {
+        return {
+            restrict: 'A',
+            replace: false,
+
+            //template: '<canvas/>',
+            link: function(scope, element, attributes) {
+                var params = scope.$eval(attributes.ngDoodle);
+                console.info('ngDoodle params',params);
+
+                //var MOLdata = params.item.outputLog.split("M  END")[0];
+
+                //console.info(MOLdata);
+
+                //var canvas = element.find('canvas');
+                var name = 'sketcher_'+params.index;
+                //console.info(name);
+                //element.append('<canvas id="' + name + '"></canvas>');
+                new ChemDoodle.SketcherCanvas(name, 500, 300,{useServices:true});
+
+                /*ChemDoodle.ELEMENT['H'].jmolColor = 'black';
+                ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
+                var sketcher = new ChemDoodle.SketcherCanvas(name, 500, 300,{useServices:true});
+                sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
+                sketcher.specs.atoms_useJMOLColors = true;
+                sketcher.specs.bonds_clearOverlaps_2D = true;
+                sketcher.specs.shapes_color = '#c10000';
+                //sketcher.loadMolecule(ChemDoodle.readMOL(MOLdata));
+                //sketcher.repaint();*/
+            }
+        }
+    }])
     /**
      * The ng-thumb directive
      * @author: nerv
@@ -43,7 +75,7 @@ angular
 
                 var params = scope.$eval(attributes.ngThumb);
 
-                console.log(params);
+                //console.log(params);
 
                 if (!helper.isFile(params.file)) return;
                 if (!helper.isImage(params.file)) return;

@@ -20,23 +20,26 @@
 
   <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
   <script src="bower_components/tiff.js/tiff.min.js"></script>
+
   <script src="components/ChemDoodleWeb-7.0.2/install/ChemDoodleWeb.js"></script>
   <script src="components/ChemDoodleWeb-7.0.2/install/uis/ChemDoodleWeb-uis.js"></script>
-
-
   <link rel="stylesheet" href="components/ChemDoodleWeb-7.0.2/install/ChemDoodleWeb.css">
   <link rel="stylesheet" href="components/ChemDoodleWeb-7.0.2/install/uis/jquery-ui-1.10.3.custom.css">
+
+  <script src="components/chemdoodle-angular-master/chemdoodle_angular.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+  <!--<link rel="stylesheet" href="https://hub.chemdoodle.com/cwc/6.0.0//ChemDoodleWeb.css">-->
+  <!--<script src="https://hub.chemdoodle.com/cwc/6.0.0/ChemDoodleWeb.js"></script>-->
+  <!--<link rel="stylesheet" href="https://hub.chemdoodle.com/cwc/6.0.0/uis/jquery-ui-1.10.3.custom.css">-->
+  <!--<script src="https://hub.chemdoodle.com/cwc/6.0.0/uis/ChemDoodleWeb-uis.js"></script>-->
 
   <link rel="stylesheet" href="components/font-awesome-4.6.3/css/font-awesome.min.css" />
 
 
   <script src="app.js"></script>
   <script src="upload.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
 
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
   <script src="directives.js"></script>
@@ -99,16 +102,23 @@
     <div class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10">
-        <script>
-          ChemDoodle.ELEMENT['H'].jmolColor = 'black';
-          ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
-          var sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300,{useServices:true});
-          sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
-          sketcher.specs.atoms_useJMOLColors = true;
-          sketcher.specs.bonds_clearOverlaps_2D = true;
-          sketcher.specs.shapes_color = '#c10000';
-          sketcher.repaint();
-        </script>
+        <div ng-cloak ng-repeat="item in data track by $index">
+          <!--<chemdoodlewrapper  molfile="molecule.molfile" elementid="'chemdoodle'">-->
+            <!--<canvas id="chemdoodle"></canvas>-->
+          <!--</chemdoodlewrapper>-->
+          <!--<div ng-doodle="{ item: item, index: $index }"></div>-->
+          <script>
+            ChemDoodle.ELEMENT['H'].jmolColor = 'black';
+            ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
+            var sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300,{useServices:true});
+            sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
+            sketcher.specs.atoms_useJMOLColors = true;
+            sketcher.specs.bonds_clearOverlaps_2D = true;
+            sketcher.specs.shapes_color = '#c10000';
+//            sketcher.loadMolecule(ChemDoodle.readMOL());
+            sketcher.repaint();
+          </script>
+        </div>
       </div>
       <div class="col-sm-1"></div>
     </div>
