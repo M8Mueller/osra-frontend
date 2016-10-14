@@ -32,11 +32,11 @@
 
   <script src="app.js"></script>
   <script src="upload.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
+  <!--<script src="view1/view1.js"></script>-->
+  <!--<script src="view2/view2.js"></script>-->
+  <!--<script src="components/version/version.js"></script>-->
+  <!--<script src="components/version/version-directive.js"></script>-->
+  <!--<script src="components/version/interpolate-filter.js"></script>-->
 
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
   <script src="directives.js"></script>
@@ -52,7 +52,7 @@
 
     <header class="menu">
       <h1>Optical Structure Interpreter</h1>
-      <p>Drag and drop an image, or use the button below to select one manually.</p>
+      <p>Drag and drop an image anywhere, or use the button below to select one manually.</p>
       <p>Or visit the <a href="http://mona.fiehnlab.ucdavis.edu/">MoNA main site</a>.</p>
     </header>
 
@@ -63,11 +63,11 @@
           <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div ng-show="uploader.isHTML5" class="drop-container">
-          <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-            Drag your image here
-          </div>
-        </div>
+        <!--<div ng-show="uploader.isHTML5" class="drop-container">-->
+          <!--<div class="well my-drop-zone" nv-file-over="" uploader="uploader">-->
+            <!--Drag your image here-->
+          <!--</div>-->
+        <!--</div>-->
         <input type="file" nv-file-select="" uploader="uploader" /><br/>
       </div>
       <div class="col-sm-1"></div>
@@ -81,7 +81,7 @@
     <div class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10">
-        <div ng-cloak class="upload-box" ng-repeat="item in uploaderTop">
+        <div ng-cloak class="upload-box" ng-repeat="item in file">
           <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 500, height: 300 }"></div>
         </div>
       </div>

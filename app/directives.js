@@ -43,7 +43,7 @@ angular
 
                 var params = scope.$eval(attributes.ngThumb);
 
-                console.log(params);
+                //console.log(params);
 
                 if (!helper.isFile(params.file)) return;
                 if (!helper.isImage(params.file)) return;
