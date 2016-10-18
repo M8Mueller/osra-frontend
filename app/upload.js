@@ -12,6 +12,7 @@ angular
 
     .controller('UploadController', ['$scope', '$http', 'FileUploader', function($scope, $http, FileUploader) {
         var uploader = $scope.uploader = new FileUploader();
+        $scope.model = [{ 'molFile':'' }];
 
         // CALLBACKS
 
@@ -36,13 +37,20 @@ angular
                     $scope.inchiKey = response.data[0].inchiKey || "not found";
 
                     $scope.MOLdata = response.data[0].outputLog.split("M  END")[0];
-                    sketcher.loadMolecule(ChemDoodle.readMOL($scope.MOLdata));
+                    //sketcher.loadMolecule(ChemDoodle.readMOL($scope.MOLdata));
+                    //$scope.model = { 'molFile':$scope.MOLdata }
+
+                    $scope.compounds = response.data;
+
+                    $scope.compounds.forEach(function(compound, index){
+                        $scope.model[index] = { 'molFile': compound.outputLog.split("$$$$\n")[index]/*.split("M  END")[0]*/ };
+                    });
                 } else {
                     console.info('Your file wasn\'t processed properly. Make sure the name contains no special characters.');
                     $scope.inchiCode = "ERROR: bad input";
                     $scope.inchiKey = "ERROR: bad input";
 
-                    sketcher.clear();
+                    //sketcher.clear();
                 }
             });
         };
