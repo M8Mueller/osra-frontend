@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp', [
-    'upload',
-    'ngRoute'
+angular.module('OSI', [
+    'upload'/*,
+    'ngRoute'*/
 ]);

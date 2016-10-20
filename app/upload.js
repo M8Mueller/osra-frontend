@@ -5,14 +5,14 @@
 
 
 angular
-
-
-    .module('upload', ['angularFileUpload'])
-
-
+    .module('upload', [ 'angularFileUpload' ])
     .controller('UploadController', ['$scope', '$http', 'FileUploader', function($scope, $http, FileUploader) {
+        $scope.models = [{ 'molFile':'',
+            'inchiCode':'none',
+            'inchiKey':'none'
+        }];
+
         var uploader = $scope.uploader = new FileUploader();
-        $scope.model = [{ 'molFile':'' }];
 
         // CALLBACKS
 
@@ -24,33 +24,27 @@ angular
             data.append('file', fileItem._file);
             data.append('file_format', fileItem.file.type);
 
-            $http.post('http://localhost:8080/convert',data, {
+            $http.post('http://localhost:8080/convert', data, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             }).then(function(response){
                 $scope.processing = false;
+                $scope.models = [];
 
                 console.info(response);
 
                 if (response && response.data.length > 0) {
-                    $scope.inchiCode = response.data[0].inchiCode ? response.data[0].inchiCode.split("InChI=")[1] : "not found";
-                    $scope.inchiKey = response.data[0].inchiKey || "not found";
-
-                    $scope.MOLdata = response.data[0].outputLog.split("M  END")[0];
-                    //sketcher.loadMolecule(ChemDoodle.readMOL($scope.MOLdata));
-                    //$scope.model = { 'molFile':$scope.MOLdata }
-
-                    $scope.compounds = response.data;
-
-                    $scope.compounds.forEach(function(compound, index){
-                        $scope.model[index] = { 'molFile': compound.outputLog.split("$$$$\n")[index]/*.split("M  END")[0]*/ };
+                    response.data.forEach(function(compound, index){
+                        $scope.models[index] = { 'molFile':compound.outputLog.split('$$$$\n')[index],
+                            'inchiCode':compound.inchiCode ? compound.inchiCode.split('InChI=')[1] : 'not found',
+                            'inchiKey':compound.inchiKey || 'not found'
+                        };
                     });
                 } else {
-                    console.info('Your file wasn\'t processed properly. Make sure the name contains no special characters.');
-                    $scope.inchiCode = "ERROR: bad input";
-                    $scope.inchiKey = "ERROR: bad input";
-
-                    //sketcher.clear();
+                    $scope.models = [{ 'molFile':'',
+                        'inchiCode':'ERROR: bad response',
+                        'inchiKey':'ERROR: bad response'
+                    }];
                 }
             });
         };
